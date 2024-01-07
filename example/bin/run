@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+if [ -z $EZE_SELENIUM_DRIVER_REMOTE_CHROME_URL ]; then
+  echo EZE_SELENIUM_DRIVER_REMOTE_CHROME_URL is not set!
+  exit 1
+fi
+
+bundle exec eze rspec -reze/selenium/webdriver spec

@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <title>eZe</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./assets/main.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" integrity="sha512-ZKX+BvQihRJPA8CROKBhDNvoc2aDMOdAlcm7TUQY+35XYtrd3yh95QOOhsPDQY9QnKE0Wqag9y38OIgEvb88cA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.min.js" integrity="sha512-U9dKDqsXAE11UA9kZ0XKFyZ2gQCj+3AwZdBMni7yXSvWqLFEj8C1s7wRmWl9iyij8d5zb4wm56j4z/JVEwS77g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+
+  <body>
+    <div class="content">
+
+    <h1>eZe</h1>
+
+    <% examples.each.with_index(1) do |example, i| %>
+      <section class="example">
+        <% execution_result = example[:execution_result] %>
+
+        <h2>
+          <%=
+            case execution_result&.fetch(:status, nil).to_s
+            when 'passed' then '<span class="material-symbols-outlined green">check_circle</span>'
+            when 'failed' then '<span class="material-symbols-outlined red">error</span>'
+            else
+            end
+          %>
+          &nbsp;
+          <%= helper.h example[:description] %>
+        </h2>
+
+        <% if execution_result %>
+          <table class="example-stat">
+            <tr>
+              <th>Time</th>
+              <th>Start time</th>
+              <th>Finish time</th>
+            </tr>
+            <tr>
+              <tr>
+                <td><%= execution_result[:time] ? "#{execution_result[:time].round(1)} sec" : "N/A" %></td>
+                <td><%= execution_result[:started_at] %></td>
+                <td><%= execution_result[:finished_at] %></td>
+              </tr>
+            </tr>
+          </table>
+
+          <% exception = execution_result[:exception] %>
+
+          <% if exception %>
+            <pre class="exception"><%= helper.h "#{exception[:class_name]}: #{exception[:message]}\n\n#{exception[:backtrace]}" %></pre>
+          <% end %>
+        <% end %>
+
+        <% example[:steps].each.with_index(1) do |step, num| %>
+          <div class="step <%= "step-alert" unless step[:success] %>">
+            <div class="pure-g">
+              <div class="pure-u-1-4">
+                <table>
+                  <tr>
+                    <td>
+                    <%=
+                      step[:success] ?
+                        '<span class="status material-symbols-outlined green">check_small</span>' :
+                        '<span class="status material-symbols-outlined red">exclamation</span>'
+                      %>
+                    </td>
+                    <td>
+                      <a href="<%= helper.h step[:screenshot_path] %>" data-lightbox="<%= helper.h "example-#{i}-screenshot" %>" data-title="<%= helper.h step[:description] %>">
+                        <img src="<%= helper.h step[:screenshot_path] %>" />
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="pure-u-3-4">
+                <div class="step-desc">
+                  <h4>
+                    <%= num %>.
+                    <%= helper.h step[:description] %>
+                  </h4>
+                  <p class="timer"><span class="material-symbols-outlined">timer</span> <%= step[:time].round(1) %> sec</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </section>
+    <% end %>
+    </div>
+  </body>
+</html>

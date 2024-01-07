@@ -1,0 +1,383 @@
+body {
+	color: #777;
+}
+
+h1 {
+	font-size: 1.2em;
+	font-weight: normal;
+	color: #aaa;
+}
+
+.example-stat th, td {
+	text-align: left; /* td と th を左寄せにする */
+	padding: 8px; /* 必要に応じてパディングを調整 */
+
+}
+
+.red {
+	color: #FF4500;
+}
+
+.green {
+	color: #32CD32;
+}
+
+.timer {
+	margin-top: 0;
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 0; /* 上部に配置 */
+	right: 0; /* 右端に配置 */
+	font-size: 13px;
+}
+.timer .material-symbols-outlined {
+	font-size: 13px;
+}
+
+.status {
+	margin-right: 10px;
+}
+
+.example {
+	margin-top: 50px;
+}
+
+.step {
+	margin: 10px 0px 10px 0px;
+	padding: 8px;
+	background-color: #E5E5E5;
+}
+
+.step-alert {
+	background-color: #FFE5E5;
+}
+
+pre.exception {
+	font-size: small;
+	font-family: 'Monaco', monospace;
+	padding: 15px;
+	background-color: #FFE5E5;
+}
+
+.step img {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	object-position: top;
+
+}
+
+.step h4 {
+	margin: 0px 75px 0px 10px;
+}
+
+.step-desc {
+	position: relative;
+	margin: 0px 0px;
+}
+
+.pure-img-responsive {
+	max-width: 100%;
+	height: auto;
+}
+
+/*
+Add transition to containers so they can push in and out.
+ */
+#layout,
+#menu,
+.menu-link {
+	-webkit-transition: all 0.2s ease-out;
+	-moz-transition: all 0.2s ease-out;
+	-ms-transition: all 0.2s ease-out;
+	-o-transition: all 0.2s ease-out;
+	transition: all 0.2s ease-out;
+}
+
+/*
+This is the parent `<div>` that contains the menu and the content area.
+ */
+#layout {
+	position: relative;
+	left: 0;
+	padding-left: 0;
+}
+#layout.active #menu {
+	left: 150px;
+	width: 150px;
+}
+
+#layout.active .menu-link {
+	left: 150px;
+}
+/*
+The content `<div>` is where all your content goes.
+ */
+.content {
+	margin: 0 auto;
+	padding: 0 2em;
+	max-width: 800px;
+	margin-bottom: 50px;
+	line-height: 1.6em;
+}
+
+.header {
+	margin: 0;
+	color: #333;
+	text-align: left;
+	padding: 1em 5em 1em 2.5em;
+	height: 1em
+}
+
+.header a.back {
+	text-decoration: none;
+	color: #555;
+}
+
+.header h1 {
+	margin: 0.2em 0;
+	font-size: 3em;
+	font-weight: 300;
+}
+
+.header h2 {
+	font-weight: 300;
+	color: #ccc;
+	padding: 0;
+	margin-top: 0;
+}
+
+.header h2 a {
+	font-weight: 300;
+	color: #ccc;
+	padding: 0;
+	margin-top: 0;
+	text-decoration: none;
+}
+
+.header h2 a:hover {
+	font-weight: 300;
+	color: #ddd;
+	padding: 0;
+	margin-top: 0;
+	text-decoration: none;
+}
+
+.content h2 a {
+        color: #555;
+	text-decoration: none;
+}
+
+.content h2 a:hover {
+        color: #888;
+	text-decoration: none;
+}
+
+.content-subhead {
+	margin: 50px 0 20px 0;
+	font-weight: 300;
+	color: #888;
+}
+
+
+
+/*
+The `#menu` `<div>` is the parent `<div>` that contains the `.pure-menu` that
+appears on the left side of the page.
+ */
+
+#menu {
+	margin-left: -150px; /* "#menu" width */
+	width: 150px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 1000; /* so the menu or its navicon stays above all content */
+	background: #191818;
+	overflow-y: auto;
+}
+/*
+All anchors inside the menu should be styled like this.
+ */
+#menu a {
+	color: #999;
+	border: none;
+	padding: 0.6em 0 0.6em 0.6em;
+}
+
+
+h2 {
+    display: flex;
+    align-items: center;
+}
+
+h3 {
+    display: flex;
+    align-items: center;
+}
+
+h4 {
+    display: flex;
+    align-items: center;
+}
+
+/*
+Remove all background/borders, since we are applying them to #menu.
+ */
+#menu .pure-menu,
+#menu .pure-menu ul {
+	border: none;
+	background: transparent;
+}
+
+/*
+Add that light border to separate items into groups.
+ */
+#menu .pure-menu ul,
+#menu .pure-menu .menu-item-divided {
+	border-top: 1px solid #333;
+}
+/*
+Change color of the anchor links on hover/focus.
+ */
+#menu .pure-menu li a:hover,
+#menu .pure-menu li a:focus {
+	background: #333;
+}
+
+/*
+This styles the selected menu item `<li>`.
+ */
+#menu .pure-menu-selected,
+#menu .pure-menu-heading {
+	background: #1f8dd6;
+}
+/*
+This styles a link within a selected menu item `<li>`.
+ */
+#menu .pure-menu-selected a {
+	color: #fff;
+}
+
+/*
+This styles the menu heading.
+ */
+#menu .pure-menu-heading {
+	font-size: 110%;
+	color: #fff;
+	margin: 0;
+}
+
+/* -- Dynamic Button For Responsive Menu -------------------------------------*/
+
+/*
+The button to open/close the Menu is custom-made and not part of Pure. Here's
+how it works:
+ */
+
+/*
+`.menu-link` represents the responsive menu toggle that shows/hides on
+small screens.
+ */
+.menu-link {
+	position: fixed;
+	display: block; /* show this only on small screens */
+	top: 0;
+	left: 0; /* "#menu width" */
+	background: #000;
+	background: rgba(0,0,0,0.7);
+	font-size: 10px; /* change this value to increase/decrease button size */
+	z-index: 10;
+	width: 2em;
+	height: auto;
+	padding: 2.1em 1.6em;
+}
+
+.menu-link:hover,
+.menu-link:focus {
+	background: #000;
+}
+
+.menu-link span {
+	position: relative;
+	display: block;
+}
+
+.menu-link span,
+.menu-link span:before,
+.menu-link span:after {
+	background-color: #fff;
+	pointer-events: none;
+	width: 100%;
+	height: 0.2em;
+}
+
+.menu-link span:before,
+.menu-link span:after {
+	position: absolute;
+	margin-top: -0.6em;
+	content: " ";
+}
+
+.menu-link span:after {
+	margin-top: 0.6em;
+}
+
+
+/* -- Responsive Styles (Media Queries) ------------------------------------- */
+
+/*
+Hides the menu at `48em`, but modify this based on your app's needs.
+ */
+@media (min-width: 48em) {
+
+	.header,
+	.content {
+		padding-left: 2em;
+		padding-right: 2em;
+	}
+
+	#layout {
+		padding-left: 150px; /* left col width "#menu" */
+		left: 0;
+	}
+	#menu {
+		left: 150px;
+	}
+
+	.menu-link {
+		position: fixed;
+		left: 150px;
+		display: none;
+	}
+
+	#layout.active .menu-link {
+		left: 150px;
+	}
+}
+
+@media (max-width: 48em) {
+	/* Only apply this when the window is small. Otherwise, the following
+	case results in extra padding on the left:
+	 * Make the window small.
+	 * Tap the menu to trigger the active state.
+	 * Make the window large again.
+	 */
+#layout.active {
+	position: relative;
+	left: 150px;
+}
+}
+
+pre {
+	background-color: #eee;
+border: solid;
+border-radius: 3px;
+border-width:thin;
+border-color: #ccc;
+padding: 5px 5px 5px 5px;
+	white-space: pre-wrap ;
+
+}

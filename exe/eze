@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+parser = OptionParser.new
+
+subparsers = Hash.new {|h, k|
+  $stderr.puts "no such subcommand: #{k}"
+
+  exit 1
+}
+
+subparsers['rspec'] = OptionParser.new
+
+parser.order!(ARGV)
+
+subcommand = ARGV.shift
+
+subparsers[subcommand].parse!([]) unless ARGV.empty?
+
+require 'bundler/setup'
+
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
+
+case subcommand
+when 'rspec'
+  require 'eze/rspec'
+
+  begin
+    load Gem.bin_path('rspec-core', 'rspec')
+  ensure
+    Eze::RSpec::RunReporter.new.report_result
+  end
+else
+  $stderr.puts "no such subcommand: #{subcommand}"
+
+  exit 1
+end
+

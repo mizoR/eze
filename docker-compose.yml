@@ -1,0 +1,18 @@
+version: '3'
+services:
+  cmd:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sleep 100000
+    environment:
+      - 'EZE_SELENIUM_DRIVER_REMOTE_CHROME_URL=http://chrome:4444/wd/hub'
+    volumes:
+      - .:/cmd
+    user: "1000:1000"
+    depends_on:
+      - chrome
+
+  chrome:
+    image: seleniarm/standalone-chromium:4.10.0
+    shm_size: "2gb"
