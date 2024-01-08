@@ -67,7 +67,7 @@ module Eze
 
         FileUtils.copy_entry(TEMPLATE_ASSETS_PATH, "#{output}/assets")
 
-        puts("Generated #{output}/index.html\n\n")
+        "#{output}/index.html"
       end
     end
   end
