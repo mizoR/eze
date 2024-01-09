@@ -14,4 +14,9 @@ require 'capybara/rspec'
 
     example.run
   end
+
+  config.prepend_after(:each) do
+    page.reset!
+    page.driver.quit
+  end
 end
